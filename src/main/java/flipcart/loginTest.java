@@ -61,6 +61,7 @@ public class loginTest {
   @AfterSuite
   public void afterSuite() {
 	  System.out.println("After Executed");
+	  logout();
 	  driver.close();
 	 // driver.quit();
   }
@@ -132,6 +133,7 @@ public class loginTest {
   // This function is responsible for selecting product and adding into the cart.
   public boolean Select_Product()
   {
+	  boolean bolResult=false;
 	  String strFilePath="src/main/resources/data.csv";
 	  String ProductName[]=file_util.parsetextdata(strFilePath);
 	  for (int i=0;i<=ProductName.length-1;i++)
@@ -142,7 +144,7 @@ public class loginTest {
 	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys(Keys.RETURN);
 	  
 	  WebDriverWait wait = new WebDriverWait(driver, 10);
-	  WebElement productName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Canon IXUS 190')]")));
+	  WebElement productName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'"+ProductName[i]+"')]")));
 	  productName.click();
 	  
 	  // Switch window 
@@ -164,27 +166,43 @@ public class loginTest {
 	 highLighterMethod(driver,AddtoCart1);
 	 WebElement AddtoCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class='col col-6-12']/button")));
 	 AddtoCart.click();
-	
+	 
+	 if(driver.findElement(By.xpath("//a[contains(text(),'"+ProductName[i]+"')]")).isDisplayed())
+	  {
+		  System.out.println("Product successfuliy added to cart "+ProductName[i]);
+		  Reporter.log("Product successfuliy added to cart " +ProductName[i]);
+		  Assert.assertTrue(true);
+		  bolResult= true;
+	  }else 
+	  {
+		  System.out.println("Failed  to add product in to cart "+ProductName[i]);
+		  Reporter.log("Failed  to add product in to cart "+ProductName[i]);
+		  Assert.assertTrue(false);
+		  bolResult= false;
+	  }  
+	 
+	 
 	  }
-	 // Clicking on logout
-	 WebElement usermenu = driver.findElement(By.xpath("//div[contains(text(),'Ankush')]"));
-	 Actions action = new Actions(driver);
-	 action.moveToElement(usermenu).clickAndHold().build().perform();
-	 
-	// driver.findElement(By.xpath("//div[contains(text(),'Ankush')]")).click();
-	 driver.findElement(By.xpath("//a[@href='#']")).click();
 	 
 	 
-	  return true;
+	  return bolResult;
+	
 	  
   }
   
   public void logout()
   {
-	 
+	// Clicking on logout
+		 WebElement usermenu = driver.findElement(By.xpath("//div[contains(text(),'Ankush')]"));
+		 Actions action = new Actions(driver);
+		 action.moveToElement(usermenu).clickAndHold().build().perform();
+		 
+		// driver.findElement(By.xpath("//div[contains(text(),'Ankush')]")).click();
+		 driver.findElement(By.xpath("//a[@href='#']")).click(); 
   }
   
   // This is utility method for highlighting the object in DOM
+ 
   public void highLighterMethod(WebDriver driver, WebElement element){
 	  JavascriptExecutor js = (JavascriptExecutor) driver;
 	  js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
