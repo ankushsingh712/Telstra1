@@ -34,7 +34,7 @@ public class loginTest {
 	setup("chrome");  
 	FlipCartLogin();
 	Select_Product();
-	logout();
+	//logout();
 	//driver.quit();
   }
   @Test(enabled=false)
@@ -42,7 +42,7 @@ public class loginTest {
 		setup("firefox");  
 		FlipCartLogin();
 		Select_Product();
-		driver.quit();
+		//driver.quit();
 	 
   }
 /*
