@@ -3,7 +3,6 @@ package flipcart;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import junit.framework.Assert;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -20,6 +19,10 @@ import org.testng.annotations.Test;
 //import org.testng.annotations.DataProvider;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
+
+/*
+ * This Class contains login function with supporting methods 
+ */
 
 public class loginTest {
 	public WebDriver driver;
@@ -60,7 +63,10 @@ public class loginTest {
 	  driver.close();
   }
   
-  // This Method is responsible for web driver object creation 
+  /* This Method is responsible for web driver object creation 
+  * It also require browser name as an parameter to open desired browser 
+  * Parameter should be like "chrome/firefox/ie"
+  */
   public void setup(String browser)
   {
 	  String BrowserName=browser;
@@ -91,6 +97,9 @@ public class loginTest {
 	  }
   }
   
+  
+  // Login method for performing Flipcart login operation
+  
   public boolean FlipCartLogin()
   {
 	  WebDriverWait wait = new WebDriverWait(driver, 15);
@@ -118,7 +127,7 @@ public class loginTest {
 	  
   }
 
-  
+  // This function is responsible for selecting product and adding into the cart.
   public boolean Select_Product()
   {
 	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys("Camera");
@@ -155,7 +164,7 @@ public class loginTest {
 		}
 	 WebElement usermenu = driver.findElement(By.xpath("//div[contains(text(),'Ankush')]"));
 	 Actions action = new Actions(driver);
-	 action.moveToElement(usermenu).click().build().perform();
+	 action.moveToElement(usermenu).build().perform();
 	 
 	// driver.findElement(By.xpath("//div[contains(text(),'Ankush')]")).click();
 	 driver.findElement(By.xpath("//a[@href='#']")).click();
@@ -169,6 +178,8 @@ public class loginTest {
   {
 	 
   }
+  
+  // This is utility method for highlighting the object in DOM
   public void highLighterMethod(WebDriver driver, WebElement element){
 	  JavascriptExecutor js = (JavascriptExecutor) driver;
 	  js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
