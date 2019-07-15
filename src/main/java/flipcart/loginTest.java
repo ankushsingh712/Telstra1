@@ -1,6 +1,7 @@
 package flipcart;
 
 import java.util.Set;
+import java.util.Spliterator;
 import java.util.concurrent.TimeUnit;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
@@ -136,15 +137,18 @@ public class loginTest {
 	  boolean bolResult=false;
 	  String strFilePath="src/main/resources/data.csv";
 	  String ProductName[]=file_util.parsetextdata(strFilePath);
+	  
+	  
+	  
 	  for (int i=0;i<=ProductName.length-1;i++)
 	  {
+		  String[] productclass=ProductName[i].split(",");  
 		  
-	  
-	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys("Camera");
+	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys(productclass[1]);
 	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys(Keys.RETURN);
 	  
 	  WebDriverWait wait = new WebDriverWait(driver, 10);
-	  WebElement productName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'"+ProductName[i]+"')]")));
+	  WebElement productName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'"+productclass[0]+"')]")));
 	  productName.click();
 	  
 	  // Switch window 
@@ -152,7 +156,7 @@ public class loginTest {
 	  
 	  for(String handle: winHandles){
         
-		  if (driver.getTitle().contains(ProductName[i]))
+		  if (driver.getTitle().contains(productclass[0]))
 		  {
 			  System.out.println("Title of the new window: " +  driver.getTitle()); 
 			  break;
@@ -167,16 +171,16 @@ public class loginTest {
 	 WebElement AddtoCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class='col col-6-12']/button")));
 	 AddtoCart.click();
 	 
-	 if(driver.findElement(By.xpath("//a[contains(text(),'"+ProductName[i]+"')]")).isDisplayed())
+	 if(driver.findElement(By.xpath("//a[contains(text(),'"+productclass[0]+"')]")).isDisplayed())
 	  {
-		  System.out.println("Product successfuliy added to cart "+ProductName[i]);
-		  Reporter.log("Product successfuliy added to cart " +ProductName[i]);
+		  System.out.println("Product successfuliy added to cart "+productclass[0]);
+		  Reporter.log("Product successfuliy added to cart " +productclass[0]);
 		  Assert.assertTrue(true);
 		  bolResult= true;
 	  }else 
 	  {
-		  System.out.println("Failed  to add product in to cart "+ProductName[i]);
-		  Reporter.log("Failed  to add product in to cart "+ProductName[i]);
+		  System.out.println("Failed  to add product in to cart "+productclass[0]);
+		  Reporter.log("Failed  to add product in to cart "+productclass[0]);
 		  Assert.assertTrue(false);
 		  bolResult= false;
 	  }  
