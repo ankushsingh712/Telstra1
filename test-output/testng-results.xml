@@ -5,23 +5,23 @@
       <![CDATA[Login test passed]]>
     </line>
   </reporter-output>
-  <suite name="Default suite" duration-ms="30969" started-at="2019-07-12T07:46:46Z" finished-at="2019-07-12T07:47:17Z">
+  <suite name="Default suite" duration-ms="22240" started-at="2019-07-15T09:41:59Z" finished-at="2019-07-15T09:42:21Z">
     <groups>
     </groups>
-    <test name="Default test" duration-ms="30969" started-at="2019-07-12T07:46:46Z" finished-at="2019-07-12T07:47:17Z">
+    <test name="Default test" duration-ms="22240" started-at="2019-07-15T09:41:59Z" finished-at="2019-07-15T09:42:21Z">
       <class name="flipcart.loginTest">
-        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:flipcart.loginTest@132ec19]" name="beforeSuite" is-config="true" duration-ms="18" started-at="2019-07-12T13:16:46Z" finished-at="2019-07-12T13:16:46Z">
+        <test-method status="PASS" signature="beforeSuite()[pri:0, instance:flipcart.loginTest@132ec19]" name="beforeSuite" is-config="true" duration-ms="16" started-at="2019-07-15T15:11:58Z" finished-at="2019-07-15T15:11:59Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- beforeSuite -->
-        <test-method status="PASS" signature="TestCase1()[pri:0, instance:flipcart.loginTest@132ec19]" name="TestCase1" duration-ms="30884" started-at="2019-07-12T13:16:46Z" finished-at="2019-07-12T13:17:17Z">
+        <test-method status="PASS" signature="TestCase1()[pri:0, instance:flipcart.loginTest@132ec19]" name="TestCase1" duration-ms="22158" started-at="2019-07-15T15:11:59Z" finished-at="2019-07-15T15:12:21Z">
           <reporter-output>
             <line>
               <![CDATA[Login test passed]]>
             </line>
           </reporter-output>
         </test-method> <!-- TestCase1 -->
-        <test-method status="PASS" signature="afterSuite()[pri:0, instance:flipcart.loginTest@132ec19]" name="afterSuite" is-config="true" duration-ms="97" started-at="2019-07-12T13:17:17Z" finished-at="2019-07-12T13:17:17Z">
+        <test-method status="PASS" signature="afterSuite()[pri:0, instance:flipcart.loginTest@132ec19]" name="afterSuite" is-config="true" duration-ms="87" started-at="2019-07-15T15:12:21Z" finished-at="2019-07-15T15:12:21Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- afterSuite -->

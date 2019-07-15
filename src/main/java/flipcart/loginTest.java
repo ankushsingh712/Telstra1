@@ -20,13 +20,14 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.AfterSuite;
 
+
 /*
  * This Class contains login function with supporting methods 
  */
 
 public class loginTest {
 	public WebDriver driver;
-
+	utilityclass file_util =new utilityclass();
 	@Test //(dataProvider = "dp")
   public void TestCase1()  {
 	setup("chrome");  
@@ -61,6 +62,7 @@ public class loginTest {
   public void afterSuite() {
 	  System.out.println("After Executed");
 	  driver.close();
+	 // driver.quit();
   }
   
   /* This Method is responsible for web driver object creation 
@@ -71,21 +73,21 @@ public class loginTest {
   {
 	  String BrowserName=browser;
 	  if (BrowserName.contains("chrome"))
-	  {
+	  {  //Setting property for chrome driver
 	  System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 	   driver = new ChromeDriver();
 	   driver.manage().window().maximize();
 		 driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		 driver.get("https://www.flipkart.com");
 	  }else if (BrowserName.contains("firefox"))
-	  {
+	  {	  //Setting property for Firefox driver
 		 System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
 		 driver = new FirefoxDriver();
 		 driver.manage().window().maximize();
 		 driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		 driver.get("https://www.flipkart.com");
 	  }else if (BrowserName.contains("ie"))
-	  {
+	  {  //Setting property for IE driver
 		 System.setProperty("webdriver.ie.driver", "src/main/resources/IEDriverServer.exe");
 		 driver = new InternetExplorerDriver();
 		 driver.manage().window().maximize();
@@ -109,7 +111,7 @@ public class loginTest {
 	  driver.findElement(By.xpath("//input[@type='password']")).sendKeys("9011099241");
 	  driver.findElement(By.xpath("//span[contains(text(),'Login')]//following::button")).click();
 	
-	  
+	  // Asserting for successful login
 	  if(driver.findElement(By.xpath("//div[contains(text(),'Ankush')]")).isDisplayed())
 	  {
 		  System.out.println("Login Successful");
@@ -130,6 +132,12 @@ public class loginTest {
   // This function is responsible for selecting product and adding into the cart.
   public boolean Select_Product()
   {
+	  String strFilePath="src/main/resources/data.csv";
+	  String ProductName[]=file_util.parsetextdata(strFilePath);
+	  for (int i=0;i<=ProductName.length-1;i++)
+	  {
+		  
+	  
 	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys("Camera");
 	  driver.findElement(By.xpath("//input[@type='text' and @name='q']")).sendKeys(Keys.RETURN);
 	  
@@ -137,12 +145,12 @@ public class loginTest {
 	  WebElement productName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[contains(text(),'Canon IXUS 190')]")));
 	  productName.click();
 	  
-	  
+	  // Switch window 
 	  Set<String> winHandles = driver.getWindowHandles();
 	  
 	  for(String handle: winHandles){
         
-		  if (driver.getTitle().contains("Canon IXUS 190"))
+		  if (driver.getTitle().contains(ProductName[i]))
 		  {
 			  System.out.println("Title of the new window: " +  driver.getTitle()); 
 			  break;
@@ -151,20 +159,17 @@ public class loginTest {
           
       }
 	  
-	  
+	 // Click on add to care button
 	 WebElement AddtoCart1= driver.findElement(By.xpath("//*[@class='col col-6-12']/button"));
 	 highLighterMethod(driver,AddtoCart1);
 	 WebElement AddtoCart = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//li[@class='col col-6-12']/button")));
 	 AddtoCart.click();
-	 try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	
+	  }
+	 // Clicking on logout
 	 WebElement usermenu = driver.findElement(By.xpath("//div[contains(text(),'Ankush')]"));
 	 Actions action = new Actions(driver);
-	 action.moveToElement(usermenu).build().perform();
+	 action.moveToElement(usermenu).clickAndHold().build().perform();
 	 
 	// driver.findElement(By.xpath("//div[contains(text(),'Ankush')]")).click();
 	 driver.findElement(By.xpath("//a[@href='#']")).click();
@@ -184,4 +189,8 @@ public class loginTest {
 	  JavascriptExecutor js = (JavascriptExecutor) driver;
 	  js.executeScript("arguments[0].setAttribute('style', 'background: yellow; border: 2px solid red;');", element);
 	  }
+  
+  
+  
+  
 }
